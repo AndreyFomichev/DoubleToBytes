@@ -20,19 +20,20 @@ package com.mycompany.parsingandframing;
  * Modified by Carlton Davis, November 2020
  */
 
-
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
 public class DoubleToBytes {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DoubleToBytes myObject = new DoubleToBytes();
         double d = 123456789999.234243D; //myObject.getDouble();
 
         System.out.println("Input double: " + d);
         byte[] myByteArray = myObject.doubleToByteArray(d);
+        myByteArray = doubleToByteArrayNew(d);
         double outputValue = myObject.byteArrayToDouble(myByteArray);
         System.out.println("Output value: " + outputValue);
     }
@@ -57,8 +58,16 @@ public class DoubleToBytes {
         }
         return Double.parseDouble(input);
     }
-    public byte[] doubleToByteArrayNew(double numDouble) {
-    
+
+    public static byte[] doubleToByteArrayNew(double numDouble) throws IOException {
+        byte[] arrayByte = new byte[8];
+        ByteBuffer bb = ByteBuffer.allocate(8);
+        bb.putDouble(numDouble);
+        arrayByte = bb.array();
+
+        System.out.println("doubleToByteArrayNew: ".concat(Arrays.toString(arrayByte)));
+
+        return arrayByte;
     }
     public byte[] doubleToByteArray(double numDouble) {
         byte[] arrayByte = new byte[8];
@@ -75,7 +84,8 @@ public class DoubleToBytes {
         arrayByte[6] = (byte) (numLong >>> 8);
         arrayByte[7] = (byte) numLong;
 
-        System.out.println(Arrays.toString(arrayByte));
+        System.out.println("doubleToByteArrayOld: ".concat(Arrays.toString(arrayByte)));
+
         return arrayByte;
     }
 
