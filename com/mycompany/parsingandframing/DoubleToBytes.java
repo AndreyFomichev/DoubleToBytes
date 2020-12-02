@@ -33,7 +33,7 @@ public class DoubleToBytes {
 
         System.out.println("Input double: " + d);
         byte[] myByteArray = myObject.doubleToByteArray(d);
-        myByteArray = doubleToByteArrayNew(d);
+        myByteArray = myObject.doubleToByteArrayNew(d);
         double outputValue = myObject.byteArrayToDouble(myByteArray);
         System.out.println("Output value: " + outputValue);
     }
@@ -59,7 +59,7 @@ public class DoubleToBytes {
         return Double.parseDouble(input);
     }
 
-    public static byte[] doubleToByteArrayNew(double numDouble) throws IOException {
+    public byte[] doubleToByteArrayNew(double numDouble) throws IOException {
         byte[] arrayByte = new byte[8];
         ByteBuffer bb = ByteBuffer.allocate(8);
         bb.putDouble(numDouble);
